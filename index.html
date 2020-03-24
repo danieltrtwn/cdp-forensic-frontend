@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>CDP-Frontend</title>
+
+    <!-- jQuery -->
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <!-- jQuery-ui Spinner with 2 inputs-->
+    <script src="node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="node_modules/jquery-ui-dist/jquery-ui.min.css">
+
+    <!-- moment.js (for datepicker) -->
+    <script src="node_modules/moment/min/moment.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" >
+    <!-- Popper.js neccessary for bootstrap dropdowns -->
+    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
+
+    <!-- FancyBox --> 
+    <link rel="stylesheet" href="node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css" />
+    <script src="node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js"></script>
+
+    <!-- DatePicker -->
+    <script type="text/javascript" src="node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js"></script>
+    <link rel="stylesheet" href="node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css" />
+
+    <link href="assets/css/styles.css" rel="stylesheet"/>
+</head>
+
+
+<body>
+    <nav class="navbar navbar-expand">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li id="nav-item-list" class="nav-item active">
+                    <a class="nav-link" href="#">List</a>
+                </li>
+                <li id="nav-item-restore" class="nav-item">
+                    <a class="nav-link" href="#">Restore</a>
+                </li>
+                <li id="nav-item-entropy" class="nav-item">
+                    <a class="nav-link" href="#">Entropy</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container container-list">
+        <div class="filterArea">
+            <div class="form-group row">
+                <label for="dropdownMenuButton" class="col-sm-2 col-form-label color-white">Hostnames</label>
+                <div class="col-sm-4">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Select Hostname
+                        </button>
+                        <div class="dropdown-menu unselected" aria-labelledby="dropdownMenuButton">
+                            <!--<a class="dropdown-item" href="#">Hostname 1</a>-->
+                        </div>
+                    </div>
+                </div>
+                <label for="inputRegex" class="col-sm-2 col-form-label color-white">Filter</label>
+                <div class="col-sm-4">
+                    <input class="form-control" id="inputRegex" placeholder="Filter">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="datetimepickerStart" class="col-sm-2 col-form-label color-white">Startdate</label>
+                <div class="input-group date col-sm-4" id="datetimepickerStart" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepickerStart"/>
+                    <div class="input-group-append" data-target="#datetimepickerStart" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+                <label for="datetimepickerEnd" class="col-sm-2 col-form-label color-white">Enddate</label>
+                <div class="input-group date col-sm-4" id="datetimepickerEnd" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepickerEnd"/>
+                    <div class="input-group-append" data-target="#datetimepickerEnd" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <button id="applyFilter" type="submit" class="btn btn-primary">Apply Filter</button>
+            </div>           
+        </div>
+
+        <div class="filemanager hidden">
+            <div class="search">
+                <span class="search-icon"><i class="fa fa-search"></i></span>
+                <input class="search-input form-control" type="search" placeholder="Search.." />
+            </div>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page"><span><i class="fa fa-home" aria-hidden="true"></i></span></li>
+            </ol>
+            
+            <div class="container filebrowser-actions">
+                <div class="row form-group">
+                    <span class="startTime col-sm-3 form-control"></span>
+                    <div id="slider-range" class="col-sm-6"></div>
+                    <span class="endTime col-sm-3 form-control"></span>
+                </div>
+                <div class="form-group row">
+                    <a class="form-control button folderName color-white col-sm-2" id="backButton"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+                    <a class="form-control button color-white col-sm-2" id="homeButton"><i class="fa fa-home" aria-hidden="true"></i></a>
+                </div>
+            </div>
+            
+            
+
+            <ul class="data"></ul>
+            <div class="nothingfound">
+                <div class="nofiles"></div>
+                <span>No files here.</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container container-restore">
+        <ul class="list-group"></ul>
+    </div>
+
+    <div class="container container-entropy">
+        <ul class="list-group"></ul>
+    </div>
+
+    <div id="previewModal" class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="previewModalLabel">Versions</h5>
+        </div>
+        <div class="modal-body">
+            <ul class="list-group"></ul>
+        </div>
+        <!-- <div class="modal-footer">
+            <button type="button" class="btn btn-secondary">Button1</button>
+            <button type="button" class="btn btn-primary">Button2</button>
+        </div> -->
+    </div>
+
+    <div id="dialog" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title dialog-text"></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-footer okay">
+              <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Okay</button>
+            </div>
+            <div class="modal-footer decision">
+              <button type="button" class="btn btn-primary button-yes">Yes</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">No</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <script src="main.js" type="module"></script>
+</body>
+</html>
