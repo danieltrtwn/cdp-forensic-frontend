@@ -1,6 +1,7 @@
 # cdp-forensic-frontend
 
-The frontend for [cdp-forensic-webserver](https://github.com/meinlschmidt/cdp-forensic-webserver).
+The frontend for [cdp-forensic-webserver](https://github.com/meinlschmidt/cdp-forensic-webserver)
+being used as a submodule in [sauvegardeEX](https://github.com/LudwigEnglbrecht/sauvegardeEX).
 Developed and tested with Google Chrome on Ubuntu 18.04 LTS and Windows 10.
 
 Feel free to contact us for improvements or questions.
