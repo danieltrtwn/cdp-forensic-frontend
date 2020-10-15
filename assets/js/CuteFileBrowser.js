@@ -255,14 +255,9 @@ export default class CuteFileBrowser {
 			// if path available
 			else if (path[0].trim().length) {
 				rendered = this.searchByPath(path[0], data);
-				if (rendered.length) {
-					this.currentPath = path[0];
-					this.render(rendered);
-				}
-				else {
-					this.currentPath = path[0];
-					this.render(rendered);
-				}
+				// Fix path -> add "/"
+				this.currentPath = this.fixPath(path[0]);
+                		this.render(rendered);
 			}
 
 			// pseudoroot path
